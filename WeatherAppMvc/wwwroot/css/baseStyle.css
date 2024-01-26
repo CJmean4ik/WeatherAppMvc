@@ -1,0 +1,99 @@
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    background-image: url('/imgs/weather backgound.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    background-color: rgba(0, 0, 0, 0.514);
+    width: 1000px;
+    height: 800px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+.content__title {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 50px;
+    font-family: "Bebas Neue";
+    font-weight: 200;
+    color: #ffff;
+}
+
+.control-panel {
+    display: flex;
+    width: 900px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(77, 77, 77);
+}
+
+.indicator {
+    margin-top: 10px;
+    margin-left: 15px;
+    height: 47px;
+    width: 47px;
+}
+
+.search-field {
+    margin-top: 10px;
+    display: flex;
+    transition: all 0.4s;
+    height: max-content;
+}
+
+.search {
+    background-color: rgba(151, 148, 148, 0.116);
+    background-image: url("/imgs/search.png") ;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-left: 1px solid rgba(75, 75, 75, 0.288);
+    width: 45px;
+    height: 47px;
+}
+
+.search-field:focus {
+    box-shadow: -4px -5px 3px 0px gray;
+}
+
+.search-field:hover {
+    box-shadow: -4px -5px 3px 0px gray;
+}
+
+.warning {
+    display: block;
+    color: rgba(199, 194, 194, 0.534);
+    font-family: "Bebas Neue";
+    font-size: 26px;
+    margin-top: 250px;
+}
+
+.emptyList {
+    display: block;
+    color: rgba(199, 194, 194, 0.534);
+    font-family: "";
+    font-size: 26px;
+    margin-top: 250px;
+}
+
+.inpt {
+    width: 280px;
+    padding: 5px;
+    height: max-content;
+    font-family: 'Bebas Neue';
+    color: rgba(199, 194, 194, 0.534);
+    font-size: 30px;
+    background-color: rgba(151, 148, 148, 0.116);
+}

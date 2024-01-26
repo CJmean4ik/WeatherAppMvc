@@ -1,0 +1,48 @@
+﻿@model List<WeatherForecastModel>
+@{
+    ViewData["Title"] = "View";
+}
+
+<div class="weather-container @(Model.Count >= 3 ? "" : "single-element")">
+    @foreach (var forecastModel in @Model)
+    {
+        @await Html.PartialAsync("weatherItem",forecastModel);
+    }
+</div>
+
+<style scoped>
+    .weather-container {
+        max-width: 880px;
+        height: 466px;
+        margin-top: inherit;
+        padding-left: 30px;
+        padding-right: 30px;
+        overflow: scroll;
+        overflow-y: hidden;
+        display: flex;
+        column-gap: 30px;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-direction: row;
+    }
+
+        .weather-container.single-element {
+            justify-content: center;
+        }
+
+        .weather-container::-webkit-scrollbar {
+            background-color: rgba(151, 148, 148, 0.116);
+            padding-top: 10px;
+            width: 20px;
+        }
+
+        .weather-container::-webkit-scrollbar-thumb {
+            background-color: rgba(199, 194, 194, 0.534);
+            width: 10px;
+        }
+
+            .weather-container::-webkit-scrollbar-thumb:hover {
+                background-color: rgba(238, 235, 235, 0.534);
+                transition: all 0.4s;
+            }
+</style>

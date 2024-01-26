@@ -1,0 +1,112 @@
+﻿@model  List<CurrentLocationModel>
+
+    <div class="city__container">
+    @if (Model is not null)
+    {
+        @foreach (var currentLocation in Model)
+        {
+        <form method="post" action="/weather/location/selected">
+            <div class="container__info">        
+                    <div class="info__name">                 
+                        <span>City name:</span><span>@currentLocation.FullName</span>         
+                    </div>
+                    <div class="info__lat">
+                        <span>Longitude:</span><span>@currentLocation.LON</span>
+                    </div>
+                    <div class="info__lon">
+                        <span>Latitude:</span><span>@currentLocation.LAT</span>
+                    </div>
+                <input type="hidden" name="selectedCity" value="@currentLocation.FullName" class="hidden-input" />
+                <button class="btn" type="submit">Select city</button>
+            </div>
+        </form>
+        }
+    }
+</div>
+@if (ViewBag.CityName is null or "")
+{
+    <span class="warning">The search field should not be empty!</span>
+}
+@if (Model != null && Model.Count == 0)
+{
+    <span class="warning">No cities were found such as "@ViewBag.CityName"</span>
+}
+<style>
+    .city__container {
+        margin: 0 50px;
+        margin-top: 30px;
+        max-height: 600px;
+        overflow: scroll;
+        overflow-x: hidden;
+    }
+
+        .city__container::-webkit-scrollbar {
+            background-color: rgba(151, 148, 148, 0.116);
+            padding-top: 10px;
+            width: 20px;
+        }
+
+        .city__container::-webkit-scrollbar-thumb {
+            background-color: rgba(63, 63, 63, 0.514);
+            width: 10px;
+        }
+
+            .city__container::-webkit-scrollbar-thumb:hover {
+                background-color: rgba(199, 194, 194, 0.534);
+                transition: all 0.4s;
+            }
+
+    .container__info {
+        font-family: "Bebas Neue";
+        color: rgba(199, 194, 194, 0.534);
+        background-color: rgba(63, 63, 63, 0.514);
+        width: 860px;
+        height: auto;
+        margin: 10px;
+        margin-bottom: 20px;
+        transition: all 0.4s;
+        font-size: 30px;
+    }
+
+    .container__info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+        .container__info > div {
+            margin: 10px 10px;
+        }
+
+            .container__info > div:nth-child(1) > span:nth-child(2) {
+                margin-left: 126px;
+            }
+
+            .container__info > div:nth-child(2) > span:nth-child(2) {
+                margin-left: 136px;
+            }
+
+            .container__info > div:nth-child(3) > span:nth-child(2) {
+                margin-left: 146px;
+            }
+
+            .container__info > div:nth-child(4) > span:nth-child(2) {
+                margin-left: 152px;
+            }
+
+        .container__info:focus {
+            box-shadow: -4px -5px 3px 0px gray;
+        }
+
+        .container__info:hover {
+            box-shadow: -4px -5px 3px 0px gray;
+        }
+
+    .warning {
+        text-align: center;
+    }
+
+    .info__name {
+        text-align: justify;
+    }
+</style>

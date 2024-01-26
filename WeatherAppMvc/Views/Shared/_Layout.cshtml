@@ -3,47 +3,41 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WeatherAppMvc</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WeatherAppMvc.styles.css" asp-append-version="true" />
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="/css/resetStyle.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/css/baseStyle.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/css/buttonStyle.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/fonts/bebasneue/bebasneue.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WeatherAppMvc</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+        <div class="content">
+            <span class="content__title">Weather forecast for your city</span>
+            <div class="control-panel">
+                    <form class="search-field" method="post" action="/weather/location">
+                        <input class="inpt" type="text" name="country">
+                        <button class="search" type="submit" value="Send"></button>
+                    </form>
+                <a class="btn @(ViewBag.IsActive == true ? "" : "disabBtn")"
+                onclick=" @(ViewBag.IsActive == true ? "return true;" : "return false;")"
+                href="/weather/location/forecast/for/today?city=@ViewBag.YourCity">For today</a>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - WeatherAppMvc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+                <a class="btn @(ViewBag.IsActive == true ? "" : "disabBtn")"
+                onclick=" @(ViewBag.IsActive == true ? "return true;" : "return false;")"
+                href="/weather/location/forecast/for/tomorrow?city=@ViewBag.YourCity">For tomorrow</a>
+
+                <a class="btn @(ViewBag.IsActive == true ? "" : "disabBtn")"
+                onclick=" @(ViewBag.IsActive == true ? "return true;" : "return false;")"
+                href="/weather/location/forecast/for/three_days?city=@ViewBag.YourCity">For 3 days</a>
+
+                <a class="btn @(ViewBag.IsActive == true ? "" : "disabBtn")"
+                onclick=" @(ViewBag.IsActive == true ? "return true;" : "return false;")"
+                href="/weather/location/forecast/for/five_days?city=@ViewBag.YourCity">For 5 days</a>
+
+                <img class="indicator" src="/imgs/sunny-day.png" />
+            </div>      
+        @RenderBody()
+    </div>
+    </div>
 </body>
 </html>

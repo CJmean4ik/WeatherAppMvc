@@ -1,0 +1,108 @@
+﻿@model WeatherForecastModel;
+
+<div class="weather_item-container">
+    <div class="title">
+        <span>@Model.CurrentDateForecast</span>
+        <span>@Model.DayWeek</span>
+        <img id="weatherIcon" ref="imgComponent" src="@Model.ImagePath" />
+        <span>@Model.Description</span>
+    </div>
+    <div id="underline"></div>
+    <div class="body">
+        <p>Temperature</p>
+        <span>Current:</span><span>@Model.CurrentTemperature</span>
+        <br/>
+        <span>It feels:</span><span>@Model.TemperatureFeels</span>
+        <br/>
+    </div>
+    <div id="underline"></div>
+    <div class="footer">
+        <p>Wind</p>
+        <span>Speed: </span><span>@Model.WindSpeed м/с</span>
+        <br/>
+        <span>Direction: </span><span>@Model.WindDirection °</span>
+        <br/>
+        <span>Gusts: </span><span>@Model.WindGusts м/с</span>
+    </div>
+</div>
+
+<style scoped>
+#weatherIcon {
+  margin-left: 5px;
+  height: 50px;
+  width: 50px;
+}
+
+    .weather_item-container {
+  border: 1px solid rgb(77, 77, 77);
+  width: 250px;
+  height: 430px;
+  padding: 10px;
+  font-size: 23px;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.body span {
+  display: inline-block;
+  margin-top: 10px;
+}
+.body > span:nth-child(3) {
+  padding-left: 60px;
+}
+
+.body > span:nth-child(6) {
+  padding-left: 60px;
+}
+.body > span:nth-child(3):after {
+  content: "\2103";
+  margin-left: 5px;
+  font-size: 20px;
+}
+.body > span:nth-child(6):after {
+  content: "\2103";
+  margin-left: 5px;
+  font-size: 20px;
+}
+.body > span:nth-child(9):after {
+  content: "\2103";
+  margin-left: 5px;
+  font-size: 20px;
+}
+.body > span:nth-child(12):after {
+  content: "\2103";
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+.body p {
+  text-align: center;
+}
+#underline {
+  border: 0.5px solid rgb(77, 77, 77);
+  width: 200px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.footer p {
+  text-align: center;
+
+}
+.footer > span {
+  display: inline-block;
+  margin-top: 10px;
+}
+.footer > span:nth-child(3) {
+            padding-left: 79px;
+}
+.footer > span:nth-child(6) {
+            padding-left: 53px;
+}
+.footer > span:nth-child(9) {
+            padding-left: 79px;
+}
+</style>

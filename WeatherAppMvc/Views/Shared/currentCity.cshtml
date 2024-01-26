@@ -1,0 +1,53 @@
+﻿@model List<WeatherForecastModel>
+@{
+    ViewBag.IsActive = true;
+    ViewBag.YourCity = ViewBag.SelectedCity;
+}
+
+<div class="city-container">
+    <div>
+        <span>Your city:</span><span>@ViewBag.SelectedCity</span>
+    </div>
+    <div id="underline"></div>
+    @if (Model != null)
+    {
+        @await Html.PartialAsync("weatherpage", Model);
+    }
+</div>
+
+<style>
+    .city-container {
+        margin: 0 50px;
+        margin-top: 30px;
+        height: 600px;
+        font-family: 'Bebas Neue';
+        font-size: 30px;
+        text-align: left;
+        padding: 10px;
+        color: rgba(199, 194, 194, 0.534);
+        background-color: rgba(151, 148, 148, 0.116);
+        white-space: nowrap;
+    }
+
+        .city-container > div:nth-child(1) > span:nth-child(2) {
+            margin-left: 175px;
+        }
+
+        .city-container > div:nth-child(2) > span:nth-child(2) {
+            margin-left: 139px;
+        }
+
+        .city-container > div:nth-child(3) > span:nth-child(2) {
+            margin-left: 50px;
+        }
+
+    #underline {
+        margin: 10px 0;
+        border: 0.5px solid rgb(77, 77, 77);
+        width: auto;
+    }
+
+    .warning {
+        text-align: center;
+    }
+</style>
