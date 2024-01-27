@@ -17,100 +17,68 @@ namespace WeatherAppMvc.Services.Implementions
 
         public List<WeatherForecastModel> GetForecastForFiveDays(WeatherApiResponse weatherDataResponce)
         {
-            var FORECAST_MODEL = new List<WeatherForecastModel>();
-
-            var TOMORROW = DateTime.Now;
-            TOMORROW = TOMORROW.AddDays(1).Date;
-
-            var LIMIT_DATE = TOMORROW.AddDays(5).Date;
-
-            foreach (var weatherData in weatherDataResponce.List)
-            {
-                var CURRENT_WEATHER_DATE = DateTime.Parse(weatherData.dt_txt);
-
-                if (CURRENT_WEATHER_DATE >= TOMORROW && CURRENT_WEATHER_DATE <= LIMIT_DATE)
-                {
-                    var weatherModel = _mapper.Map<WeatherData, WeatherForecastModel>(weatherData);
-                    weatherModel.DayWeek = DateTime.Today.DayOfWeek;
-                    weatherModel.ImagePath = WeatherIconsHolder.GetPathToImageByIconName(weatherModel.IconName)!;
-
-                    FORECAST_MODEL.Add(weatherModel);
-                }
-            }
-            return FORECAST_MODEL;
+            var tomorrow = DateTime.Now.AddDays(1).Date;
+            var limitDate = tomorrow.AddDays(5).Date;
+            var forecastModels = SelectWeatherMoreThatOneDay(weatherDataResponce, tomorrow, limitDate);
+            return forecastModels;
         }
-
         public List<WeatherForecastModel> GetForecastForThreeDays(WeatherApiResponse weatherDataResponce)
-        {
-            var FORECAST_MODEL = new List<WeatherForecastModel>();
+        {         
+            var tomorrow = DateTime.Now.AddDays(1).Date;
+            var limitDate = tomorrow.AddDays(3).Date;
+            var forecastModels = SelectWeatherMoreThatOneDay(weatherDataResponce, tomorrow, limitDate);
 
-            var TOMORROW = DateTime.Now;
-            TOMORROW = TOMORROW.AddDays(1).Date;
-
-            var LIMIT_DATE = TOMORROW.AddDays(3).Date;
-
-            foreach (var weatherData in weatherDataResponce.List)
-            {
-                var CURRENT_WEATHER_DATE = DateTime.Parse(weatherData.dt_txt);
-
-                if (CURRENT_WEATHER_DATE >= TOMORROW && CURRENT_WEATHER_DATE <= LIMIT_DATE)
-                {
-                    var weatherModel = _mapper.Map<WeatherData, WeatherForecastModel>(weatherData);
-                    weatherModel.DayWeek = DateTime.Today.DayOfWeek;
-                    weatherModel.ImagePath = WeatherIconsHolder.GetPathToImageByIconName(weatherModel.IconName)!;
-
-                    FORECAST_MODEL.Add(weatherModel);
-                }
-            }
-            return FORECAST_MODEL;
+            return forecastModels;         
         }
-
-        public List<WeatherForecastModel> GetForecastForToday(WeatherApiResponse weatherDataResponce)
-        {
-            var FORECAST_MODEL = new List<WeatherForecastModel>();
-          
-            var TOMORROW = DateTime.Now;
-            TOMORROW = TOMORROW.AddDays(1).Date;
-
-            foreach (var weatherData in weatherDataResponce.List)
-            {
-                var CURRENT_WEATHER_DATE = DateTime.Parse(weatherData.dt_txt);
-
-                if (CURRENT_WEATHER_DATE <= TOMORROW)
-                {
-                    var weatherModel = _mapper.Map<WeatherData, WeatherForecastModel>(weatherData);
-                    weatherModel.DayWeek = DateTime.Today.DayOfWeek;
-                    weatherModel.ImagePath = WeatherIconsHolder.GetPathToImageByIconName(weatherModel.IconName)!;
-                    
-                    FORECAST_MODEL.Add(weatherModel);
-                }
-            }
-            return FORECAST_MODEL;
-        }
-
         public List<WeatherForecastModel> GetForecastForTomorrow(WeatherApiResponse weatherDataResponce)
         {
-            var FORECAST_MODEL = new List<WeatherForecastModel>();
+            var tomorrow = DateTime.Now.AddDays(1).Date;
+            var limitDate = tomorrow.AddDays(1).Date;
+            var forecastModels = SelectWeatherMoreThatOneDay(weatherDataResponce, tomorrow, limitDate);
 
-            var TOMORROW = DateTime.Now;
-            TOMORROW = TOMORROW.AddDays(1).Date;
-
-            var LIMIT_DATE = TOMORROW.AddDays(1).Date;
+            return forecastModels;
+        }
+        public List<WeatherForecastModel> GetForecastForToday(WeatherApiResponse weatherDataResponce)
+        {
+            var forecastModels = new List<WeatherForecastModel>();        
+            var tomorrow = DateTime.Now.AddDays(1).Date;
 
             foreach (var weatherData in weatherDataResponce.List)
             {
-                var CURRENT_WEATHER_DATE = DateTime.Parse(weatherData.dt_txt);
+                var currentWeatherDate = DateTime.Parse(weatherData.dt_txt);
 
-                if (CURRENT_WEATHER_DATE >= TOMORROW && CURRENT_WEATHER_DATE <= LIMIT_DATE)
+                if (currentWeatherDate <= tomorrow)
                 {
-                    var weatherModel = _mapper.Map<WeatherData, WeatherForecastModel>(weatherData);
-                    weatherModel.DayWeek = DateTime.Today.DayOfWeek;
-                    weatherModel.ImagePath = WeatherIconsHolder.GetPathToImageByIconName(weatherModel.IconName)!;
-
-                    FORECAST_MODEL.Add(weatherModel);
+                    var weatherModel = CreateWeatherMapping(weatherData);
+                    forecastModels.Add(weatherModel);
                 }
             }
-            return FORECAST_MODEL;
+            return forecastModels;
+        }
+      
+        private List<WeatherForecastModel> SelectWeatherMoreThatOneDay(WeatherApiResponse weatherDataResponce, DateTime tomorrow, DateTime limitDate)
+        {
+            var forecastModels = new List<WeatherForecastModel>();
+
+            foreach (var weatherData in weatherDataResponce.List)
+            {
+                var currentWeatheDate = DateTime.Parse(weatherData.dt_txt);
+
+                if (currentWeatheDate >= tomorrow && currentWeatheDate <= limitDate)
+                {
+                    var weatherModel = CreateWeatherMapping(weatherData);
+                    forecastModels.Add(weatherModel);
+                }
+            }
+            return forecastModels;
+        }
+        private WeatherForecastModel CreateWeatherMapping(WeatherData weatherData)
+        {
+            var weatherModel = _mapper.Map<WeatherData, WeatherForecastModel>(weatherData);
+            weatherModel.DayWeek = DateTime.Today.DayOfWeek;
+            weatherModel.ImagePath = WeatherIconsHolder.GetPathToImageByIconName(weatherModel.IconName)!;
+
+            return weatherModel;
         }
     }
 }
