@@ -56,7 +56,7 @@ namespace WeatherAppMvc.Controllers
         public async Task<ActionResult> GetFiveDaysForecast([FromQuery] string city)
         {
             WeatherApiResponse weatherResponceData = await GetWeatherApiResponceByTimeLine(city, TimelineWeather.FiveDay);
-
+            
             var weatherData = _weatherParser.GetForecastForFiveDays(weatherResponceData);
 
             ViewBag.SelectedCity = city;

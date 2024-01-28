@@ -9,9 +9,17 @@
         <span>Your city:</span><span>@ViewBag.SelectedCity</span>
     </div>
     <div id="underline"></div>
-    @if (Model != null)
+    @if (Model != null && Model.Count > 0)
     {
         @await Html.PartialAsync("weatherpage", Model);
+    }   
+    @if (Model == null)
+    {
+        <span class="warning">Select the weather forecast date</span>
+    }
+    @if (Model != null && Model.Count == 0)
+    {
+        <span class="warning">No weather forecast was found for your city</span>
     }
 </div>
 

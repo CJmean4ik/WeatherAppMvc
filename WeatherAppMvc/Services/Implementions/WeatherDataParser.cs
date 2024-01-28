@@ -17,13 +17,20 @@ namespace WeatherAppMvc.Services.Implementions
 
         public List<WeatherForecastModel> GetForecastForFiveDays(WeatherApiResponse weatherDataResponce)
         {
+            if (weatherDataResponce.List == null)            
+                return new List<WeatherForecastModel>();
+            
+
             var tomorrow = DateTime.Now.AddDays(1).Date;
             var limitDate = tomorrow.AddDays(5).Date;
             var forecastModels = SelectWeatherMoreThatOneDay(weatherDataResponce, tomorrow, limitDate);
             return forecastModels;
         }
         public List<WeatherForecastModel> GetForecastForThreeDays(WeatherApiResponse weatherDataResponce)
-        {         
+        {
+            if (weatherDataResponce.List == null)
+                return new List<WeatherForecastModel>();
+
             var tomorrow = DateTime.Now.AddDays(1).Date;
             var limitDate = tomorrow.AddDays(3).Date;
             var forecastModels = SelectWeatherMoreThatOneDay(weatherDataResponce, tomorrow, limitDate);
@@ -32,6 +39,9 @@ namespace WeatherAppMvc.Services.Implementions
         }
         public List<WeatherForecastModel> GetForecastForTomorrow(WeatherApiResponse weatherDataResponce)
         {
+            if (weatherDataResponce.List == null)
+                return new List<WeatherForecastModel>();
+
             var tomorrow = DateTime.Now.AddDays(1).Date;
             var limitDate = tomorrow.AddDays(1).Date;
             var forecastModels = SelectWeatherMoreThatOneDay(weatherDataResponce, tomorrow, limitDate);
@@ -40,6 +50,9 @@ namespace WeatherAppMvc.Services.Implementions
         }
         public List<WeatherForecastModel> GetForecastForToday(WeatherApiResponse weatherDataResponce)
         {
+            if (weatherDataResponce.List == null)
+                return new List<WeatherForecastModel>();
+
             var forecastModels = new List<WeatherForecastModel>();        
             var tomorrow = DateTime.Now.AddDays(1).Date;
 
